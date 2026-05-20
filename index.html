@@ -1064,8 +1064,8 @@
   body[data-corners="soft"]{--radius-sm:2px;--radius-md:4px;--radius-lg:8px;--radius-pill:999px}
   body[data-corners="round"]{--radius-sm:6px;--radius-md:14px;--radius-lg:24px;--radius-pill:999px}
   body[data-corners="sharp"] .product .frame,
-  body[data-corners="sharp"] .btn,
-  body[data-corners="sharp"] .hero-seal{border-radius:0}
+  body[data-corners="sharp"] .btn{border-radius:0}
+  /* .hero-seal reste TOUJOURS rond (peu importe le tweak corners) */
   body[data-corners="soft"] .product .frame{border-radius:4px}
   body[data-corners="soft"] .btn{border-radius:6px}
   body[data-corners="round"] .product .frame{border-radius:18px}
@@ -2223,7 +2223,7 @@
     "card": "frame",
     "button": "outlined",
     "separator": "quill",
-    "seal": "star",
+    "seal": "logo",
     "density": "3"
   }/*EDITMODE-END*/;
 
