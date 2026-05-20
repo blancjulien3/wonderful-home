@@ -13,7 +13,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cardo:ital,wght@0,400;1,400&family=Jost:wght@300;400;500&family=Inter:wght@300;400;500&family=DM+Sans:wght@300;400;500&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cardo:ital,wght@0,400;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Crimson+Pro:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Inter:wght@300;400;500&family=DM+Sans:wght@300;400;500&family=Manrope:wght@300;400;500&family=Outfit:wght@300;400;500&family=Public+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap">
 <style>
   :root{
     --ivory:#F5F0E8;
@@ -842,8 +842,11 @@
     .cta .promise .item:last-child{border-bottom:none}
     .cta .btns{flex-direction:column;align-items:stretch}
     .btn{justify-content:center;padding:16px 24px}
-    section.collections,section.notes,section.ambiances,section.story,section.cta,section.testimonials{padding-top:96px;padding-bottom:96px}
+    section.collections,section.notes,section.ambiances,section.story{padding-top:80px;padding-bottom:80px}
+    section.testimonials{padding:64px 0 20px}
+    section.cta{padding:24px 0 80px}
     .testimonials blockquote{padding:32px 16px}
+    .testimonials .stamp{margin-bottom:24px}
   }
   /* ───────── TWEAKS — ATMOSPHÈRE (palette by time of day) ───────── */
   body[data-atmosphere="crepuscule"]{
@@ -1023,7 +1026,7 @@
   body[data-atmosphere="nuit"][data-surface="grain"] .surface-overlay.grain{opacity:.32;mix-blend-mode:soft-light}
   body[data-atmosphere="nuit"][data-surface="vellum"] .surface-overlay.vellum{mix-blend-mode:screen;opacity:.28}
 
-  /* ───────── TWEAKS — ACCENT (couleur dominante : or, rose, terracotta, etc.) ───────── */
+  /* ───────── TWEAKS — ACCENT (12 couleurs dominantes — palettes parfumerie) ───────── */
   body[data-accent="gold"]{--gold:#C9A84C;--gold-deep:#A8862F}
   body[data-accent="champagne"]{--gold:#D9C28A;--gold-deep:#A89766}
   body[data-accent="copper"]{--gold:#C97E4C;--gold-deep:#9B5F32}
@@ -1032,17 +1035,25 @@
   body[data-accent="terracotta"]{--gold:#C4664A;--gold-deep:#923F26}
   body[data-accent="midnight"]{--gold:#6A7BA2;--gold-deep:#3E4D6F}
   body[data-accent="charcoal"]{--gold:#5C5448;--gold-deep:#3A352D}
+  body[data-accent="olive"]{--gold:#8E8854;--gold-deep:#5F5A36}
+  body[data-accent="lin"]{--gold:#B8A88E;--gold-deep:#85775F}
+  body[data-accent="brique"]{--gold:#A8554A;--gold-deep:#7A3A30}
+  body[data-accent="indigo"]{--gold:#46537A;--gold-deep:#2E3858}
 
-  /* ───────── TWEAKS — TYPOGRAPHIE (police titres + corps) ───────── */
+  /* ───────── TWEAKS — TYPOGRAPHIE (6 titres + 6 corps) ───────── */
   body[data-font-serif="cormorant"]{--serif:'Cormorant Garamond','Times New Roman',serif}
   body[data-font-serif="playfair"]{--serif:'Playfair Display','Times New Roman',serif}
   body[data-font-serif="ebgaramond"]{--serif:'EB Garamond','Times New Roman',serif}
   body[data-font-serif="cardo"]{--serif:'Cardo','Times New Roman',serif}
+  body[data-font-serif="lora"]{--serif:'Lora','Times New Roman',serif}
+  body[data-font-serif="crimson"]{--serif:'Crimson Pro','Times New Roman',serif}
 
   body[data-font-sans="jost"]{--sans:'Jost',system-ui,sans-serif}
   body[data-font-sans="inter"]{--sans:'Inter',system-ui,sans-serif}
   body[data-font-sans="dmsans"]{--sans:'DM Sans',system-ui,sans-serif}
   body[data-font-sans="manrope"]{--sans:'Manrope',system-ui,sans-serif}
+  body[data-font-sans="outfit"]{--sans:'Outfit',system-ui,sans-serif}
+  body[data-font-sans="publicsans"]{--sans:'Public Sans',system-ui,sans-serif}
 
   /* ───────── TWEAKS — COINS (radius global) ───────── */
   body[data-corners="sharp"]{--radius-sm:0;--radius-md:0;--radius-lg:0;--radius-pill:0}
@@ -1076,6 +1087,56 @@
   body[data-motion="subtle"] .hero .particle{opacity:.4}
   body[data-motion="subtle"] .hero-seal{animation-duration:10s}
   body[data-motion="subtle"] .strip .track{animation-duration:60s}
+
+  /* ───────── TWEAKS — CARD STYLE (frame, borderless, shadow, lifted) ───────── */
+  body[data-card="frame"] .product .frame{border:1px solid rgba(26,24,20,.12);box-shadow:none}
+  body[data-card="borderless"] .product .frame{border:none;background:transparent}
+  body[data-card="shadow"] .product .frame{border:none;box-shadow:0 18px 40px -22px rgba(26,24,20,.25), 0 4px 8px -4px rgba(26,24,20,.06)}
+  body[data-card="lifted"] .product .frame{border:1px solid rgba(26,24,20,.08);box-shadow:0 30px 60px -28px rgba(26,24,20,.35), 0 6px 12px -6px rgba(26,24,20,.1);transform:translateY(-4px)}
+  body[data-card="lifted"] .product:hover .frame{transform:translateY(-8px)}
+
+  /* ───────── TWEAKS — BUTTON STYLE (outlined, filled, underlined, pill) ───────── */
+  body[data-button="outlined"] .btn{background:transparent;color:var(--ink);border:1px solid var(--ink);border-radius:0}
+  body[data-button="outlined"] .btn:hover{background:var(--ink);color:var(--ivory)}
+  body[data-button="filled"] .btn{background:var(--ink);color:var(--ivory);border:1px solid var(--ink);border-radius:0}
+  body[data-button="filled"] .btn:hover{background:var(--gold-deep);border-color:var(--gold-deep)}
+  body[data-button="filled"] .btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+  body[data-button="underlined"] .btn{background:transparent;color:var(--ink);border:none;border-bottom:1px solid var(--ink);border-radius:0;padding-left:0;padding-right:0;padding-bottom:10px}
+  body[data-button="underlined"] .btn:hover{border-bottom-color:var(--gold-deep);color:var(--gold-deep)}
+  body[data-button="pill"] .btn{border-radius:999px;background:var(--ink);color:var(--ivory);border:1px solid var(--ink)}
+  body[data-button="pill"] .btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+  body[data-button="pill"] .btn:hover{background:var(--gold-deep);border-color:var(--gold-deep)}
+
+  /* ───────── TWEAKS — SEPARATOR (ornement entre titres : ligne, losange, étoile, plume) ───────── */
+  body[data-separator] .stamp::before,
+  body[data-separator] .stamp::after{transition:none}
+  body[data-separator="line"] .stamp::before,
+  body[data-separator="line"] .stamp::after{width:32px;height:1px;background:var(--gold);content:""}
+  body[data-separator="diamond"] .stamp::before,
+  body[data-separator="diamond"] .stamp::after{width:6px;height:6px;background:var(--gold);transform:rotate(45deg);content:""}
+  body[data-separator="star"] .stamp::before,
+  body[data-separator="star"] .stamp::after{content:"✦";color:var(--gold);background:transparent;width:auto;height:auto;font-size:13px;line-height:1}
+  body[data-separator="quill"] .stamp::before,
+  body[data-separator="quill"] .stamp::after{content:"·";color:var(--gold);background:transparent;width:auto;height:auto;font-size:22px;line-height:1}
+
+  /* ───────── TWEAKS — HERO SEAL (4 styles : logo, étoile, initiale, sans) ───────── */
+  body[data-seal="logo"] .hero-seal-logo{display:block}
+  body[data-seal="logo"] .hero-seal-amp{display:none}
+  body[data-seal="star"] .hero-seal-logo{display:none}
+  body[data-seal="star"] .hero-seal-amp{display:inline;font-size:34px}
+  body[data-seal="initial"] .hero-seal-logo{display:none}
+  body[data-seal="initial"] .hero-seal-amp{display:inline;font-family:var(--serif);font-style:italic;font-size:30px;color:var(--gold-deep);content:"W"}
+  body[data-seal="initial"] .hero-seal-amp::after{content:""}
+  body[data-seal="none"] .hero-seal,
+  body[data-seal="none"] .hero-mark .hero-seal{visibility:hidden}
+  body[data-seal="none"] .hero-mark .hero-rule{flex:0 0 80px}
+
+  /* ───────── TWEAKS — PRODUCT DENSITY (3 / 2 / 4 colonnes) ───────── */
+  body[data-density="3"] .products{grid-template-columns:repeat(3,1fr)}
+  body[data-density="2"] .products{grid-template-columns:repeat(2,1fr);max-width:960px;margin-left:auto;margin-right:auto}
+  body[data-density="4"] .products{grid-template-columns:repeat(4,1fr);gap:24px}
+  body[data-density="4"] .product .meta h3{font-size:24px}
+  body[data-density="4"] .product .meta .arrow{width:36px;height:36px}
 
   /* ───────── TWEAKS PANEL CHROME ───────── */
   .tweaks-panel{
