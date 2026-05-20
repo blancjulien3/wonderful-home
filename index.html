@@ -94,7 +94,7 @@
   /* ───────── HERO ───────── */
   .hero{
     min-height:100vh;
-    display:grid;grid-template-columns:1fr 1.05fr 1fr;
+    display:grid;grid-template-columns:1fr;
     align-items:stretch;
     position:relative;
     padding-top:96px;
@@ -213,8 +213,8 @@
   .hero-bg-overlay{
     position:absolute;inset:0;z-index:1;pointer-events:none;
     background:
-      radial-gradient(70% 90% at 50% 40%, rgba(245,240,232,.35), rgba(237,229,215,.62) 75%),
-      linear-gradient(180deg, rgba(245,240,232,.42) 0%, rgba(237,229,215,.70) 100%);
+      radial-gradient(70% 90% at 50% 40%, rgba(245,240,232,.12), rgba(237,229,215,.32) 75%),
+      linear-gradient(180deg, rgba(245,240,232,.18) 0%, rgba(237,229,215,.42) 100%);
   }
   body[data-atmosphere="nuit"] .hero-bg-overlay{
     background:
@@ -450,7 +450,7 @@
 
   /* ───────── CTA ───────── */
   section.cta{
-    padding:30px 0 100px;
+    padding:10px 0 100px;
     background:linear-gradient(180deg,var(--ivory),var(--ivory-3));
     position:relative;overflow:hidden;text-align:center;
   }
@@ -754,7 +754,7 @@
   .ambiances .footnote .dragline span:first-child{width:32px;height:1px;background:var(--gold);display:inline-block}
 
   /* ───────── TÉMOIGNAGES ───────── */
-  section.testimonials{background:var(--ivory);padding:80px 0 30px;position:relative}
+  section.testimonials{background:var(--ivory);padding:80px 0 0;position:relative}
   .testimonials .stamp{
     text-align:center;font-family:var(--sans);font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold-deep);
     display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:48px;
@@ -1369,7 +1369,7 @@
   }
 </style>
 </head>
-<body data-atmosphere="aube" data-temperament="maison" data-or="maison" data-initiale="ampersand" data-hauteur="aeree" data-surface="lisse" data-accent="sage" data-font-serif="cardo" data-font-sans="manrope" data-corners="sharp" data-width="standard" data-motion="full" data-card="frame" data-button="outlined" data-separator="quill" data-seal="logo" data-density="3">
+<body data-atmosphere="aube" data-temperament="maison" data-or="maison" data-initiale="ampersand" data-hauteur="aeree" data-surface="lisse" data-accent="sage" data-font-serif="cardo" data-font-sans="manrope" data-corners="sharp" data-width="standard" data-motion="full" data-card="frame" data-button="outlined" data-separator="quill" data-seal="star" data-density="3">
 
 <!-- NAV -->
 <nav class="top" id="nav">
@@ -1406,12 +1406,6 @@
   <span class="particle p5"></span><span class="particle p6"></span>
   <span class="particle p7"></span><span class="particle p8"></span>
 
-  <aside class="side left">
-    <div class="meta-row reveal"><span class="dot"></span><span>Édition 2026</span></div>
-    <div class="num reveal d1">N°<span style="font-family:var(--sans);font-style:normal;font-size:28px;letter-spacing:.04em">07</span>
-      <small>Bouquets parfumés · 250 ml</small>
-    </div>
-  </aside>
 
   <main class="center">
     <div class="stamp reveal">Maison française · Grasse</div>
@@ -1439,13 +1433,6 @@
     </div>
   </main>
 
-  <aside class="side right">
-    <div class="meta-row reveal"><span>Livraison offerte</span><span class="dot"></span></div>
-    <div class="num reveal d1" style="text-align:right">
-      <span style="font-family:var(--sans);font-style:normal;font-size:28px;letter-spacing:.04em">12</span>
-      <small style="text-align:right">Fragrances signature</small>
-    </div>
-  </aside>
 
   <div class="scroll-cue">
     <span>Découvrir</span>
@@ -2240,7 +2227,7 @@
     "card": "frame",
     "button": "outlined",
     "separator": "quill",
-    "seal": "logo",
+    "seal": "star",
     "density": "3"
   }/*EDITMODE-END*/;
 
