@@ -1313,13 +1313,13 @@
   /* ═══════════════════════════════════════════════════════════════════
      TWEAKS SYSTEM — DÉSACTIVÉ EN PRODUCTION (2026-05-20)
      Le système complet (12 presets + 17 leviers) reste dans le code.
-     Pour le RÉACTIVER : supprime simplement les 2 règles ci-dessous
-     qui masquent le bouton flottant et le panneau.
-     Pour appliquer un nouveau preset par défaut : édite TWEAK_DEFAULTS
-     dans le bloc <script> en bas du fichier.
+     Raccourci secret : touche T → réactive le panneau (sans bouton flottant)
+     Pour TOUJOURS afficher : supprime les règles display:none ci-dessous
+     Pour changer le design par défaut : édite TWEAK_DEFAULTS dans le <script>
      ═══════════════════════════════════════════════════════════════════ */
   .tweaks-trigger{display:none !important}
-  .tweaks-panel{display:none !important}
+  .tweaks-panel{display:none}
+  body.tweaks-summoned .tweaks-panel{display:flex}
 
   /* ───────── TWEAKS TRIGGER (bouton flottant) ───────── */
   .tweaks-trigger{
@@ -2351,6 +2351,7 @@
 
   // Trigger button (floating)
   function openPanel(){
+    document.body.classList.add('tweaks-summoned');
     panel.classList.add('open');
     panel.setAttribute('aria-hidden','false');
     document.body.classList.add('tweaks-open');
@@ -2359,6 +2360,7 @@
     panel.classList.remove('open');
     panel.setAttribute('aria-hidden','true');
     document.body.classList.remove('tweaks-open');
+    document.body.classList.remove('tweaks-summoned');
     try{ window.parent.postMessage({type:'__edit_mode_dismissed'}, '*'); }catch(e){}
   }
   function togglePanel(){
