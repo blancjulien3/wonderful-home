@@ -2267,7 +2267,19 @@
     lin:        {atmosphere:"aube",       temperament:"maison",  or:"voile",    initiale:"ampersand", hauteur:"standard",  surface:"vellum", accent:"lin",        "font-serif":"cardo",      "font-sans":"publicsans", corners:"sharp", width:"standard", motion:"subtle", card:"frame",      button:"outlined",  separator:"line",    seal:"logo",    density:"3"}
   };
 
-  const tweaks = Object.assign({}, TWEAK_DEFAULTS);
+  // Persistance des tweaks via localStorage
+  const TWEAKS_STORAGE_KEY = 'wh-tweaks-v1';
+  function loadStoredTweaks(){
+    try{
+      const raw = localStorage.getItem(TWEAKS_STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    }catch(e){ return {}; }
+  }
+  function saveTweaks(){
+    try{ localStorage.setItem(TWEAKS_STORAGE_KEY, JSON.stringify(tweaks)); }catch(e){}
+  }
+
+  const tweaks = Object.assign({}, TWEAK_DEFAULTS, loadStoredTweaks());
   const panel = document.getElementById('tweaksPanel');
   const trigger = document.getElementById('tweaksTrigger');
 
@@ -2320,6 +2332,7 @@
   function setTweak(key, value){
     tweaks[key] = value;
     applyTweaks();
+    saveTweaks();
     try{
       window.parent.postMessage({type:'__edit_mode_set_keys', edits:{[key]: value}}, '*');
     }catch(e){}
@@ -2330,6 +2343,7 @@
     if(!preset) return;
     Object.assign(tweaks, preset);
     applyTweaks();
+    saveTweaks();
     try{
       window.parent.postMessage({type:'__edit_mode_set_keys', edits:preset}, '*');
     }catch(e){}
@@ -2371,9 +2385,10 @@
   // Close button
   document.getElementById('twClose').addEventListener('click', closePanel);
 
-  // Reset button
+  // Reset button — efface aussi la persistance localStorage
   document.getElementById('twReset').addEventListener('click', () => {
     Object.assign(tweaks, TWEAK_DEFAULTS);
+    try{ localStorage.removeItem(TWEAKS_STORAGE_KEY); }catch(e){}
     applyTweaks();
     try{ window.parent.postMessage({type:'__edit_mode_set_keys', edits:TWEAK_DEFAULTS}, '*'); }catch(e){}
   });
