@@ -486,8 +486,40 @@
   .btn.ghost:hover{background:var(--ink);color:var(--ivory)}
   .btn .dot{width:5px;height:5px;border-radius:50%;background:var(--gold)}
 
+  /* Newsletter form */
+  .newsletter-form{
+    display:flex;align-items:stretch;gap:0;max-width:520px;margin:36px auto 16px;
+    border:1px solid var(--ink);
+    position:relative;
+  }
+  .newsletter-form input[type="email"]{
+    flex:1;padding:16px 22px;border:none;background:transparent;outline:none;
+    font-family:var(--sans);font-size:14px;letter-spacing:.04em;color:var(--ink);
+  }
+  .newsletter-form input[type="email"]::placeholder{color:var(--ink-3);font-style:italic;font-family:var(--serif);font-size:16px}
+  .newsletter-form input[type="email"]:focus{background:rgba(245,240,232,.5)}
+  .newsletter-form button[type="submit"]{
+    border:none;border-left:1px solid var(--ink);background:var(--ink);color:var(--ivory);
+    padding:0 28px;font-family:var(--sans);font-size:11px;letter-spacing:.32em;text-transform:uppercase;cursor:pointer;
+    transition:background .25s ease;white-space:nowrap;
+  }
+  .newsletter-form button[type="submit"]:hover{background:var(--gold-deep);border-left-color:var(--gold-deep)}
+  .newsletter-form .nl-feedback{
+    position:absolute;left:0;right:0;bottom:-28px;text-align:center;
+    font-family:var(--serif);font-style:italic;font-size:14px;color:var(--gold-deep);
+    opacity:0;transition:opacity .3s ease;pointer-events:none;
+  }
+  .newsletter-form.show-feedback .nl-feedback{opacity:1}
+  .newsletter-form.is-invalid{border-color:#A8554A}
+  .newsletter-form.is-invalid .nl-feedback{color:#A8554A}
+  .nl-note{
+    text-align:center;font-family:var(--sans);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-3);
+    margin-top:22px;
+  }
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+
   .cta .promise{
-    margin-top:96px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+    margin-top:80px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;
     border-top:1px solid rgba(26,24,20,.16);
   }
   .cta .promise .item{padding:26px 18px;border-right:1px solid rgba(26,24,20,.16);text-align:left}
@@ -837,6 +869,11 @@
     .cta .promise .item{border-right:none;border-bottom:1px solid rgba(26,24,20,.16)}
     .cta .promise .item:last-child{border-bottom:none}
     .cta .btns{flex-direction:column;align-items:stretch}
+    .newsletter-form{flex-direction:column;border:none;gap:10px}
+    .newsletter-form input[type="email"]{border:1px solid var(--ink);text-align:center;padding:14px 18px}
+    .newsletter-form button[type="submit"]{border:1px solid var(--ink);padding:14px 18px}
+    .newsletter-form .nl-feedback{position:static;margin-top:8px;opacity:1;text-align:center}
+    .newsletter-form:not(.show-feedback) .nl-feedback{display:none}
     .btn{justify-content:center;padding:16px 24px}
     section.collections,section.notes,section.ambiances,section.story{padding-top:80px;padding-bottom:80px}
     section.testimonials{padding:64px 0 20px}
@@ -1790,23 +1827,26 @@
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta" id="shop" data-screen-label="08 Shop CTA">
+<!-- NEWSLETTER -->
+<section class="cta" id="shop" data-screen-label="08 Newsletter">
   <div class="container">
-    <div class="stamp reveal">Édition limitée · Hiver 2026</div>
-    <h2 class="reveal d1">Parfumez<br/><em>l'instant.</em></h2>
-    <p class="reveal d2">Un coffret-découverte composé de nos trois fragrances signature, glissé dans un écrin de lin écru — à offrir, ou à garder pour soi.</p>
+    <div class="stamp reveal">Restez en contact</div>
+    <h2 class="reveal d1">Recevez nos<br/><em>nouveautés.</em></h2>
+    <p class="reveal d2">Soyez les premiers informés des nouvelles collections, des éditions limitées et des offres exclusives réservées à nos abonnés.</p>
 
-    <div class="btns reveal d3">
-      <a href="#" class="btn"><span class="dot"></span>Découvrir la boutique</a>
-      <a href="#" class="btn ghost">Coffret découverte · €120</a>
-    </div>
+    <form class="newsletter-form reveal d3" id="newsletterForm" novalidate>
+      <label class="sr-only" for="nlEmail">Adresse email</label>
+      <input type="email" id="nlEmail" name="email" placeholder="votre@email.com" required autocomplete="email">
+      <button type="submit" class="btn">S'inscrire</button>
+      <span class="nl-feedback" id="nlFeedback" aria-live="polite"></span>
+    </form>
+    <p class="nl-note reveal d4">Pas plus de deux emails par mois. Désinscription en un clic.</p>
 
     <div class="promise">
-      <div class="item reveal"><div class="k">01 · Livraison</div><div class="v">Offerte<br/>dès 90&nbsp;€</div></div>
-      <div class="item reveal d1"><div class="k">02 · Emballage</div><div class="v">Écrin de lin<br/>réutilisable</div></div>
-      <div class="item reveal d2"><div class="k">03 · Recharge</div><div class="v">Système<br/>refillable</div></div>
-      <div class="item reveal d3"><div class="k">04 · Origine</div><div class="v">Fabriqué<br/>à Grasse</div></div>
+      <div class="item reveal"><div class="k">01 · Nouveautés</div><div class="v">En avant-<br/>première</div></div>
+      <div class="item reveal d1"><div class="k">02 · Offres</div><div class="v">Exclusivement<br/>abonnés</div></div>
+      <div class="item reveal d2"><div class="k">03 · Conseils</div><div class="v">Rituels &amp;<br/>art d'habiter</div></div>
+      <div class="item reveal d3"><div class="k">04 · Sans spam</div><div class="v">Confidentialité<br/>respectée</div></div>
     </div>
   </div>
 </section>
@@ -2431,6 +2471,46 @@
 
   // Now safe to announce
   try{ window.parent.postMessage({type:'__edit_mode_available'}, '*'); }catch(e){}
+
+  // ───────── NEWSLETTER FORM ─────────
+  (function initNewsletter(){
+    const form = document.getElementById('newsletterForm');
+    if(!form) return;
+    const input = form.querySelector('input[type="email"]');
+    const feedback = form.querySelector('.nl-feedback');
+    const submit = form.querySelector('button[type="submit"]');
+
+    function showFeedback(msg, isError){
+      feedback.textContent = msg;
+      form.classList.toggle('is-invalid', !!isError);
+      form.classList.add('show-feedback');
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const email = (input.value || '').trim();
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+      if(!valid){
+        showFeedback("Une adresse email valide, s'il vous plaît.", true);
+        input.focus();
+        return;
+      }
+      // Stockage local + simulation envoi (à brancher sur Brevo/Mailchimp plus tard)
+      try{
+        const stored = JSON.parse(localStorage.getItem('wh-newsletter') || '[]');
+        if(!stored.includes(email)) stored.push(email);
+        localStorage.setItem('wh-newsletter', JSON.stringify(stored));
+      }catch(_){}
+      submit.disabled = true;
+      submit.textContent = "Inscrit ✓";
+      input.disabled = true;
+      showFeedback("Merci — vous recevrez bientôt nos nouveautés.", false);
+    });
+
+    input.addEventListener('input', () => {
+      form.classList.remove('is-invalid','show-feedback');
+    });
+  })();
 </script>
 
 </body>
