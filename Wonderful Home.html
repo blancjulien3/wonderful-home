@@ -102,9 +102,7 @@
     align-items:stretch;
     position:relative;
     padding-top:96px;
-    background:
-      radial-gradient(60% 80% at 50% 35%, rgba(255,250,240,.55), transparent 70%),
-      linear-gradient(180deg, var(--ivory), var(--ivory-2));
+    background:var(--ivory-2);
     overflow:hidden;
   }
   .hero .side{padding:80px 56px;display:flex;flex-direction:column;justify-content:flex-end;gap:24px}
@@ -215,19 +213,21 @@
   .hero-bg-overlay{
     position:absolute;inset:0;z-index:1;pointer-events:none;
     background:
-      radial-gradient(60% 80% at 50% 35%, rgba(245,240,232,.78), rgba(237,229,215,.92) 70%),
-      linear-gradient(180deg, rgba(245,240,232,.88) 0%, rgba(237,229,215,.94) 100%);
+      radial-gradient(70% 90% at 50% 40%, rgba(245,240,232,.35), rgba(237,229,215,.62) 75%),
+      linear-gradient(180deg, rgba(245,240,232,.42) 0%, rgba(237,229,215,.70) 100%);
   }
   body[data-atmosphere="nuit"] .hero-bg-overlay{
     background:
-      radial-gradient(60% 80% at 50% 35%, rgba(22,19,17,.7), rgba(22,19,17,.9) 70%),
-      linear-gradient(180deg, rgba(22,19,17,.85) 0%, rgba(22,19,17,.96) 100%);
+      radial-gradient(70% 90% at 50% 40%, rgba(22,19,17,.45), rgba(22,19,17,.75) 75%),
+      linear-gradient(180deg, rgba(22,19,17,.55) 0%, rgba(22,19,17,.82) 100%);
   }
   body[data-atmosphere="crepuscule"] .hero-bg-overlay{
     background:
-      radial-gradient(60% 80% at 50% 35%, rgba(239,224,201,.78), rgba(213,189,150,.92) 70%),
-      linear-gradient(180deg, rgba(239,224,201,.88) 0%, rgba(213,189,150,.94) 100%);
+      radial-gradient(70% 90% at 50% 40%, rgba(239,224,201,.32), rgba(213,189,150,.62) 75%),
+      linear-gradient(180deg, rgba(239,224,201,.42) 0%, rgba(213,189,150,.72) 100%);
   }
+  /* Slight blur on hero bg so text stays the focal point */
+  .hero-bg-slide{filter:saturate(.85)}
   /* Make sure hero content sits above overlay */
   .hero > .corners,
   .hero > .particle,
@@ -961,14 +961,8 @@
   body[data-or="voile"] .cta .stamp::after,
   body[data-or="voile"] .testimonials .stamp::before,
   body[data-or="voile"] .testimonials .stamp::after{opacity:.6}
-  /* Éclatant adds a soft gold halo behind hero title */
-  body[data-or="eclatant"] .hero{
-    background:
-      radial-gradient(55% 45% at 50% 30%, rgba(230,189,78,.18), transparent 65%),
-      radial-gradient(60% 80% at 50% 35%, rgba(255,250,240,.55), transparent 70%),
-      linear-gradient(180deg, var(--ivory), var(--ivory-2));
-  }
-  body[data-or="eclatant"] .hero h1 .amp,
+  /* Éclatant : soft gold halo on title only (no hero bg override — would mask gallery) */
+  body[data-or="eclatant"] .hero h1,
   body[data-or="eclatant"] section.cta h2 em{text-shadow:0 0 24px rgba(230,189,78,.35)}
 
   /* ───────── TWEAKS — HAUTEUR (vertical rhythm) ───────── */
