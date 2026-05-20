@@ -861,6 +861,15 @@
     .collections .head{grid-template-columns:1fr;gap:16px;text-align:left;margin-bottom:32px}
     .collections .head .title{text-align:left}
     .collections .head .right{text-align:left}
+    /* Mobile : neutralise les overrides hauteur=aeree/resserree qui
+       élargissent trop les marges des heads (perçu cassé sur petit écran) */
+    body[data-hauteur] .collections .head,
+    body[data-hauteur] .notes .head,
+    body[data-hauteur] .ambiances .head{margin-bottom:32px !important}
+    body[data-hauteur] section.testimonials{padding-top:48px !important;padding-bottom:0 !important}
+    body[data-hauteur] section.cta{padding-top:12px !important;padding-bottom:80px !important}
+    body[data-hauteur] .testimonials blockquote{padding:24px 16px 8px !important}
+    body[data-hauteur] .ambiances-scroller{padding:8px 0 32px 40px !important}
     .notes-grid{grid-template-columns:1fr}
     .story .stats{grid-template-columns:1fr}
     .story .stats .stat{border-right:none;border-bottom:1px solid rgba(245,240,232,.14)}
@@ -1020,27 +1029,29 @@
   body[data-or="eclatant"] section.cta h2 em{text-shadow:0 0 24px rgba(230,189,78,.35)}
 
   /* ───────── TWEAKS — HAUTEUR (vertical rhythm) ───────── */
+  /* testimonials + cta sont EXCLUS volontairement : Julien veut un écart resserré
+     entre fin témoignages et début newsletter, quel que soit le tweak hauteur */
   body[data-hauteur="aeree"] section.collections,
   body[data-hauteur="aeree"] section.notes,
   body[data-hauteur="aeree"] section.ambiances,
-  body[data-hauteur="aeree"] section.story,
-  body[data-hauteur="aeree"] section.cta,
-  body[data-hauteur="aeree"] section.testimonials{padding-top:140px;padding-bottom:150px}
+  body[data-hauteur="aeree"] section.story{padding-top:140px;padding-bottom:150px}
+  body[data-hauteur="aeree"] section.testimonials{padding-top:140px}
+  body[data-hauteur="aeree"] section.cta{padding-bottom:150px}
   body[data-hauteur="aeree"] .collections .head,
   body[data-hauteur="aeree"] .notes .head,
   body[data-hauteur="aeree"] .ambiances .head{margin-bottom:120px}
-  body[data-hauteur="aeree"] .testimonials blockquote{padding:88px 32px}
+  body[data-hauteur="aeree"] .testimonials blockquote{padding:64px 32px 24px}
 
   body[data-hauteur="resserree"] section.collections,
   body[data-hauteur="resserree"] section.notes,
   body[data-hauteur="resserree"] section.ambiances,
-  body[data-hauteur="resserree"] section.story,
-  body[data-hauteur="resserree"] section.cta,
-  body[data-hauteur="resserree"] section.testimonials{padding-top:88px;padding-bottom:96px}
+  body[data-hauteur="resserree"] section.story{padding-top:88px;padding-bottom:96px}
+  body[data-hauteur="resserree"] section.testimonials{padding-top:64px}
+  body[data-hauteur="resserree"] section.cta{padding-bottom:80px}
   body[data-hauteur="resserree"] .collections .head,
   body[data-hauteur="resserree"] .notes .head,
   body[data-hauteur="resserree"] .ambiances .head{margin-bottom:48px}
-  body[data-hauteur="resserree"] .testimonials blockquote{padding:36px 32px}
+  body[data-hauteur="resserree"] .testimonials blockquote{padding:36px 32px 12px}
   body[data-hauteur="resserree"] .hero{padding-top:80px}
   body[data-hauteur="resserree"] .hero .center{padding:8px 0 56px}
 
