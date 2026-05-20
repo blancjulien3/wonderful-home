@@ -1,6 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/", "destination": "/Wonderful Home.html" }
-  ],
-  "cleanUrls": false
-}
