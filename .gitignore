@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Claude Code local config
+.claude/
+
+# Local backups
+*.bak
+*.backup
+
+# Screenshots / working captures (not for production)
+CAPTURE D'ÉCRAN/
+CAPTURE ECRAN/
+
+# Image sources de travail (versions compressées dispo si besoin)
+images/compressed/
+
+# Vercel
+.vercel
+.env*.local
