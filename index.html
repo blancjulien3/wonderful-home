@@ -228,6 +228,16 @@
   }
   /* Slight blur on hero bg so text stays the focal point */
   .hero-bg-slide{filter:saturate(.85)}
+  .hero-bg-static{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    opacity:1;
+    filter:saturate(.9) contrast(1.02);
+    animation:heroKenBurns 22s ease-in-out infinite alternate;
+  }
+  @keyframes heroKenBurns{
+    0%{transform:scale(1.06) translate(0,0)}
+    100%{transform:scale(1.12) translate(-1%,-1%)}
+  }
   /* Make sure hero content sits above overlay */
   .hero > .corners,
   .hero > .particle,
@@ -1281,7 +1291,9 @@
 
 <!-- HERO -->
 <header class="hero" data-screen-label="01 Hero">
-  <div class="hero-bg-gallery" id="heroBgGallery" aria-hidden="true"></div>
+  <div class="hero-bg-gallery" id="heroBgGallery" aria-hidden="true">
+    <img class="hero-bg-static" src="images/hero-bg.jpg" alt="" loading="eager" fetchpriority="high">
+  </div>
   <div class="hero-bg-overlay" aria-hidden="true"></div>
   <div class="corners">
     <span class="corner tl"></span><span class="corner tr"></span>
@@ -1768,26 +1780,7 @@
   }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-  // Hero background gallery — clone ambiance image srcs into the hero, stagger crossfade
-  (function initHeroGallery(){
-    const gallery = document.getElementById('heroBgGallery');
-    if(!gallery) return;
-    const ambianceImgs = document.querySelectorAll('.ambiance-card img');
-    if(!ambianceImgs.length) return;
-    const SLIDE_DURATION = 9; // seconds visible per slide (incl. fade)
-    const total = ambianceImgs.length;
-    const cycle = SLIDE_DURATION * total;
-    gallery.style.setProperty('--hero-slide-cycle', cycle + 's');
-    ambianceImgs.forEach((img, i) => {
-      const clone = document.createElement('img');
-      clone.src = img.src;
-      clone.alt = '';
-      clone.loading = 'eager';
-      clone.className = 'hero-bg-slide';
-      clone.style.animationDelay = (i * SLIDE_DURATION) + 's';
-      gallery.appendChild(clone);
-    });
-  })();
+  // Hero background : image statique (Ken Burns CSS), pas de gallery JS
 
   // Subtle scroll-based fade for the hero seal (preserves reveal animation at scroll=0)
   const seal = document.querySelector('.hero-mark');
