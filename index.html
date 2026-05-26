@@ -78,6 +78,15 @@
     padding:14px 56px;
     border-bottom:1px solid rgba(26,24,20,.08);
   }
+  /* Nav transparente au-dessus du hero (avant scrolled) : texte clair lisible sur la vidéo */
+  nav.top:not(.scrolled) .links,
+  nav.top:not(.scrolled) .right{
+    color:var(--ivory-2);
+    text-shadow:0 1px 3px rgba(0,0,0,.55);
+  }
+  nav.top:not(.scrolled) .links a:hover{color:#fff}
+  nav.top:not(.scrolled) .icon-btn:hover{border-color:var(--ivory)}
+  nav.top:not(.scrolled) .cart-count{background:var(--ivory);color:var(--ink)}
   nav.top .links{display:flex;gap:36px;font-family:var(--sans);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2)}
   nav.top .links a{position:relative;padding:6px 0;transition:color .2s}
   nav.top .links a:hover{color:var(--ink)}
@@ -104,9 +113,9 @@
   }
   .hero .side{padding:80px 56px;display:flex;flex-direction:column;justify-content:flex-end;gap:24px}
   .hero .side.right{align-items:flex-end;text-align:right}
-  .hero .side .meta-row{display:flex;align-items:center;gap:14px;color:var(--ink-3);font-family:var(--sans);font-size:11px;letter-spacing:.28em;text-transform:uppercase}
+  .hero .side .meta-row{display:flex;align-items:center;gap:14px;color:var(--ivory-3);font-family:var(--sans);font-size:11px;letter-spacing:.28em;text-transform:uppercase;text-shadow:0 1px 3px rgba(0,0,0,.5)}
   .hero .side .meta-row .dot{width:5px;height:5px;border-radius:50%;background:var(--gold)}
-  .hero .side .num{font-family:var(--serif);font-style:italic;font-size:56px;font-weight:300;color:var(--ink);line-height:1}
+  .hero .side .num{font-family:var(--serif);font-style:italic;font-size:56px;font-weight:300;color:var(--ivory);line-height:1;text-shadow:0 2px 12px rgba(0,0,0,.55)}
   .hero .side .num small{font-family:var(--sans);font-style:normal;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-3);display:block;margin-top:8px}
 
   .hero .center{
@@ -116,8 +125,9 @@
     min-height:100%;
   }
   .hero .stamp{
-    font-family:var(--sans);font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--ink-3);
+    font-family:var(--sans);font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--ivory-3);
     display:flex;align-items:center;gap:18px;
+    text-shadow:0 1px 3px rgba(0,0,0,.55);
   }
   .hero .stamp::before,.hero .stamp::after{content:"";width:32px;height:1px;background:var(--gold)}
 
@@ -129,16 +139,18 @@
     letter-spacing:-0.02em;
     text-align:center;
     margin:28px 0 18px;
-    color:var(--ink);
+    color:var(--ivory);
+    text-shadow:0 2px 24px rgba(0,0,0,.55), 0 1px 2px rgba(0,0,0,.4);
   }
   .hero h1 .amp{
-    font-style:italic;color:var(--gold-deep);font-weight:400;
+    font-style:italic;color:var(--gold);font-weight:400;
   }
   .hero .tagline{
     font-family:var(--serif);font-style:italic;font-weight:300;
     font-size:clamp(20px,2vw,26px);
-    color:var(--ink-2);letter-spacing:.01em;
+    color:var(--ivory-2);letter-spacing:.01em;
     margin-bottom:46px;text-align:center;
+    text-shadow:0 1px 8px rgba(0,0,0,.55);
   }
 
   /* ───────── HERO SEAL (composition éditoriale post-flacon) ───────── */
@@ -209,9 +221,8 @@
   }
   .hero-bg-overlay{
     position:absolute;inset:0;z-index:1;pointer-events:none;
-    background:
-      radial-gradient(70% 90% at 50% 40%, rgba(245,240,232,.12), rgba(237,229,215,.32) 75%),
-      linear-gradient(180deg, rgba(245,240,232,.18) 0%, rgba(237,229,215,.42) 100%);
+    /* Voile sombre uniforme — pose une atmosphère "nuit" et fait ressortir le texte clair */
+    background:rgba(20,15,10,0.28);
   }
   body[data-atmosphere="nuit"] .hero-bg-overlay{
     background:
@@ -230,6 +241,12 @@
     opacity:1;
     filter:saturate(.9) contrast(1.02);
     animation:heroKenBurns 22s ease-in-out infinite alternate;
+  }
+  /* La vidéo porte déjà son mouvement → on coupe le Ken Burns */
+  /* Aucun filtre : la vidéo est affichée brute */
+  video.hero-bg-static{
+    animation:none;transform:none;
+    filter:none;
   }
   @keyframes heroKenBurns{
     0%{transform:scale(1.06) translate(0,0)}
@@ -1440,7 +1457,9 @@
 <!-- HERO -->
 <header class="hero" data-screen-label="01 Hero">
   <div class="hero-bg-gallery" id="heroBgGallery" aria-hidden="true">
-    <img class="hero-bg-static" src="images/hero-bg.jpg" alt="" loading="eager" fetchpriority="high">
+    <video id="heroVideo" class="hero-bg-static" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      <source src="images/hero-bg.mp4" type="video/mp4">
+    </video>
   </div>
   <div class="hero-bg-overlay" aria-hidden="true"></div>
   <div class="corners">
@@ -1899,13 +1918,69 @@
 </footer>
 
 <script>
-  // Scroll-triggered nav state
+  /* ═════════ HERO VIDEO — PARALLAX + FADE + SCALE ═════════
+     Signature "luxe contemporain" (Aesop / Hermès / Dior parfums) :
+     - La vidéo joue toute seule en boucle (contemplation).
+     - En scrollant, elle "remonte" 35 % plus lentement que le contenu → profondeur.
+     - À partir de 50 % de scroll dans le hero, elle s'estompe et se rapproche (scale).
+     - prefers-reduced-motion → lecture normale, aucun effet de scroll. */
+  (function(){
+    const video = document.getElementById('heroVideo');
+    const hero  = document.querySelector('.hero');
+    if(!video || !hero) return;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduce) return; // la vidéo joue déjà en autoplay/loop, on ne touche à rien
+
+    let ticking = false;
+
+    function update(){
+      ticking = false;
+      const heroH = hero.offsetHeight || 1;
+      const y = window.scrollY || window.pageYOffset || 0;
+      const progress = Math.max(0, Math.min(1, y / heroH));
+
+      // Parallax : la vidéo se translate vers le bas de 35 % du scroll → elle "remonte" plus lentement
+      const offsetY = y * 0.35;
+
+      // Léger zoom (1 → 1.05) au fil de la progression
+      const scale = 1 + progress * 0.05;
+
+      // Fade-out qui démarre à 50 % et se termine à 90 % de progress
+      let opacity = 1;
+      if(progress > 0.5){
+        opacity = Math.max(0, 1 - (progress - 0.5) / 0.4);
+      }
+
+      video.style.transform = `translate3d(0, ${offsetY}px, 0) scale(${scale})`;
+      video.style.opacity   = opacity;
+    }
+
+    function onScroll(){
+      if(!ticking){
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }
+
+    update();
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll, {passive:true});
+  })();
+
+  // Scroll-triggered nav state — la barre blanche n'apparaît qu'après avoir scrollé le hero
   const nav = document.getElementById('nav');
+  const heroEl = document.querySelector('.hero');
+  let navThreshold = (heroEl ? heroEl.offsetHeight : window.innerHeight) - 80;
   const onScroll = () => {
-    if (window.scrollY > 40) nav.classList.add('scrolled');
+    if (window.scrollY > navThreshold) nav.classList.add('scrolled');
     else nav.classList.remove('scrolled');
   };
   window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', () => {
+    navThreshold = (heroEl ? heroEl.offsetHeight : window.innerHeight) - 80;
+    onScroll();
+  }, {passive:true});
   onScroll();
 
   // Reveal on scroll
