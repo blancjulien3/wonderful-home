@@ -62,7 +62,7 @@
   .eyebrow.gold{color:var(--gold-deep)}
   .rule{height:1px;background:var(--ink);opacity:.18;width:100%}
   .gold-rule{height:1px;background:var(--gold);width:48px}
-  .container{max-width:1440px;margin:0 auto;padding:0 56px}
+  .container{max-width:1440px;margin:0 auto;padding:0 clamp(20px, 4vw, 56px)}
 
   /* ───────── NAV ───────── */
   nav.top{
@@ -103,7 +103,10 @@
 
   /* ───────── HERO ───────── */
   .hero{
+    /* 100svh = "small viewport height" : gère la barre d'URL mobile qui apparaît/disparaît
+       (fallback 100vh pour les navigateurs anciens) */
     min-height:100vh;
+    min-height:100svh;
     display:grid;grid-template-columns:1fr;
     align-items:stretch;
     position:relative;
@@ -442,10 +445,10 @@
   }
   .story .text-col h2 em{color:var(--gold);font-style:italic}
   .story .text-col p{
-    font-family:var(--serif);font-weight:300;font-size:21px;line-height:1.55;color:rgba(245,240,232,.78);
+    font-family:var(--serif);font-weight:300;font-size:clamp(17px, 2vw, 21px);line-height:1.55;color:rgba(245,240,232,.78);
     max-width:48ch;margin-bottom:20px;
   }
-  .story .text-col p.lead{font-style:italic;color:var(--ivory);font-size:24px}
+  .story .text-col p.lead{font-style:italic;color:var(--ivory);font-size:clamp(19px, 2.4vw, 24px)}
   .story .signature{
     margin-top:48px;display:flex;align-items:center;gap:24px;
   }
@@ -459,7 +462,7 @@
   }
   .story .stats .stat{padding:30px 24px;border-right:1px solid rgba(245,240,232,.14)}
   .story .stats .stat:last-child{border-right:none}
-  .story .stats .stat .v{font-family:var(--serif);font-style:italic;font-weight:300;font-size:46px;color:var(--gold);line-height:1}
+  .story .stats .stat .v{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(34px, 4.2vw, 46px);color:var(--gold);line-height:1}
   .story .stats .stat .k{font-family:var(--sans);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(245,240,232,.6);margin-top:10px;line-height:1.6}
 
   /* ───────── CTA ───────── */
@@ -579,7 +582,7 @@
   section.sticky-collections{position:relative}
   .sticky-panel{
     position:sticky;top:0;
-    height:100vh;min-height:680px;
+    height:100vh;height:100svh;min-height:680px;
     width:100%;overflow:hidden;
     display:grid;grid-template-columns:1fr 1.1fr 1fr;align-items:center;
     padding:0 56px;
@@ -867,6 +870,23 @@
     }
     .testimonials blockquote q{font-size:clamp(22px,3vw,28px);max-width:36ch}
   }
+  /* ───────── BREAKPOINT TABLET PORTRAIT (768px) ─────────
+     iPad portrait, large mobile. Affine les paddings et tailles entre
+     les overrides 960px (tablet landscape) et 600px (mobile). */
+  @media (max-width: 768px){
+    nav.top{padding:14px clamp(16px, 4vw, 24px)}
+    nav.top .icon-btn{width:40px;height:40px}
+    .hero .center{padding:32px 0 80px}
+    .hero h1{font-size:clamp(64px, 12vw, 104px)}
+    .hero .tagline{font-size:clamp(18px, 2.5vw, 22px)}
+    .hero-mark{margin:28px auto 32px;gap:22px}
+    .hero-seal{width:64px;height:64px}
+    .sticky-panel{padding:64px 20px;gap:24px}
+    .ambiances-scroller{padding:8px 20px 28px}
+    section.collections,section.notes,section.ambiances,section.story{padding-top:96px;padding-bottom:96px}
+    .testimonials blockquote{padding:36px 24px}
+    .btn{padding:16px 28px}
+  }
   @media (max-width: 600px){
     .container{padding:0 20px}
     nav.top .right span{display:none}
@@ -917,6 +937,40 @@
     .ambiances-scroller{padding:8px 0 32px 40px;gap:18px}
     .ambiance-card{flex:0 0 78vw;max-width:300px}
     .ambiances-scroller::after{content:"";flex:0 0 40px}
+  }
+  /* ───────── BREAKPOINT TRÈS PETITS MOBILES (380px) ─────────
+     iPhone SE 1ère gen (320), iPhone SE 2/3 (375), compact Android.
+     Réduit encore les tailles pour éviter débordements et coupures. */
+  @media (max-width: 380px){
+    .container{padding:0 16px}
+    nav.top{padding:14px 16px}
+    .hero .center{padding:24px 0 64px}
+    .hero h1{font-size:clamp(44px, 13vw, 72px);line-height:.92}
+    .hero .tagline{font-size:15px;margin-bottom:24px}
+    .hero .stamp{font-size:9px;letter-spacing:.4em;gap:12px}
+    .hero .stamp::before,.hero .stamp::after{width:20px}
+    .hero-mark{margin:20px auto 24px;gap:14px}
+    .hero-seal{width:48px;height:48px}
+    .hero-seal-amp{font-size:24px}
+    .hero-signature{font-size:8px;gap:10px;letter-spacing:.22em}
+    .btn{padding:14px 20px;font-size:11px;letter-spacing:.22em}
+    .newsletter-form input[type="email"],.newsletter-form button[type="submit"]{padding:12px 16px;font-size:14px}
+    .ambiance-card{flex:0 0 82vw;max-width:280px}
+    .ambiances-scroller{padding:8px 0 28px 24px;gap:14px}
+    .ambiances-scroller::after{flex:0 0 24px}
+    section.collections,section.notes,section.ambiances,section.story{padding-top:64px;padding-bottom:64px}
+    .testimonials blockquote q{font-size:18px}
+    .notes .head h2{font-size:clamp(34px, 10vw, 48px)}
+    .strip .track{font-size:15px;gap:32px}
+    .strip .track span{gap:32px}
+    .tweaks-panel{width:calc(100vw - 32px);right:16px}
+  }
+  /* ───────── ORIENTATION PAYSAGE PETIT ÉCRAN (hauteur ≤ 600px) ─────────
+     iPhone en paysage : hero/sticky panels ne doivent pas exiger 100vh
+     car le contenu ne tient pas en mode landscape sur mobile. */
+  @media (max-height: 600px) and (max-width: 960px){
+    .hero{min-height:auto;padding:80px 0 40px}
+    .sticky-panel{height:auto;min-height:auto;padding:48px 20px}
   }
   /* ───────── TWEAKS — ATMOSPHÈRE (palette by time of day) ───────── */
   body[data-atmosphere="crepuscule"]{
