@@ -337,6 +337,8 @@
   .product{
     position:relative;
     cursor:pointer;
+    display:flex;
+    flex-direction:column;
   }
   .product .num{
     font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--ink-3);
@@ -363,7 +365,7 @@
   }
   .product .frame .placeholder em{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--ink);letter-spacing:.01em;text-transform:none}
 
-  .product .meta{margin-top:22px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+  .product .meta{margin-top:auto;padding-top:22px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
   .product .meta h3{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1.1;letter-spacing:-.005em}
   .product .meta .notes{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--ink-3);margin-top:6px;line-height:1.4}
   .product .meta .arrow{
@@ -1264,12 +1266,16 @@
   body[data-seal="none"] .hero-seal{visibility:hidden;width:0;height:0;border:none;flex:0 0 0}
   body[data-seal="none"] .hero-mark{gap:8px}
 
-  /* ───────── TWEAKS — PRODUCT DENSITY (3 / 2 / 4 colonnes) ───────── */
-  body[data-density="3"] .products{grid-template-columns:repeat(3,1fr)}
-  body[data-density="2"] .products{grid-template-columns:repeat(2,1fr);max-width:960px;margin-left:auto;margin-right:auto}
-  body[data-density="4"] .products{grid-template-columns:repeat(4,1fr);gap:24px}
-  body[data-density="4"] .product .meta h3{font-size:24px}
-  body[data-density="4"] .product .meta .arrow{width:36px;height:36px}
+  /* ───────── TWEAKS — PRODUCT DENSITY (3 / 2 / 4 colonnes) ─────────
+     Density n'a de sens qu'en desktop large. En tablet/mobile (< 961px)
+     la grille reste en 1 colonne pleine largeur (cf. @media 960px). */
+  @media (min-width: 961px){
+    body[data-density="3"] .products{grid-template-columns:repeat(3,1fr)}
+    body[data-density="2"] .products{grid-template-columns:repeat(2,1fr);max-width:960px;margin-left:auto;margin-right:auto}
+    body[data-density="4"] .products{grid-template-columns:repeat(4,1fr);gap:24px}
+    body[data-density="4"] .product .meta h3{font-size:24px}
+    body[data-density="4"] .product .meta .arrow{width:36px;height:36px}
+  }
 
   /* ───────── TWEAKS PANEL CHROME ───────── */
   .tweaks-panel{
